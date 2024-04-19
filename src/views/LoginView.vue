@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { Button, Flex, Form, FormItem, Input } from 'ant-design-vue';
 import Container from '@/components/base/Container.vue';
 
 interface FormState {
@@ -19,13 +20,13 @@ const onFinish = (values: FormState) => {
 
 <template>
   <Container :width="400">
-    <a-form
+    <Form
       :model="formState"
       autocomplete="off"
       layout="vertical"
       @finish="onFinish"
     >
-      <a-form-item
+      <FormItem
         label="Email"
         name="email"
         :rules="[
@@ -33,13 +34,13 @@ const onFinish = (values: FormState) => {
           { type: 'email', message: 'Некорректный email!' },
         ]"
       >
-        <a-input
+        <Input
           v-model:value="formState.email"
           placeholder="Введите email"
         />
-      </a-form-item>
+      </FormItem>
 
-      <a-form-item
+      <FormItem
         label="Пароль"
         name="password"
         :rules="[
@@ -49,23 +50,23 @@ const onFinish = (values: FormState) => {
           },
         ]"
       >
-        <a-input
+        <Input
           v-model:value="formState.password"
           placeholder="Введите пароль"
           type="password"
         />
-      </a-form-item>
+      </FormItem>
 
-      <a-flex justify="center">
-        <a-form-item>
-          <a-button
+      <Flex justify="center">
+        <FormItem>
+          <Button
             type="primary"
             html-type="submit"
           >
             Зарегистрироваться
-          </a-button>
-        </a-form-item>
-      </a-flex>
-    </a-form>
+          </Button>
+        </FormItem>
+      </Flex>
+    </Form>
   </Container>
 </template>

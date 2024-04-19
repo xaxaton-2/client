@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { ConfigProvider } from 'ant-design-vue';
 import locale from 'ant-design-vue/es/locale/ru_RU';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
@@ -27,7 +28,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <a-config-provider
+  <ConfigProvider
     :theme="{
       token: {
         colorPrimary: '#f7b313',
@@ -37,5 +38,5 @@ onMounted(async () => {
   >
     <Header />
     <router-view />
-  </a-config-provider>
+  </ConfigProvider>
 </template>
