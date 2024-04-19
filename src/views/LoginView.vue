@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { Button, Flex, Form, FormItem, Input } from 'ant-design-vue';
-import Container from '@/components/base/Container.vue';
+import BaseContainer from '@/components/base/BaseContainer.vue';
 
 interface FormState {
   email: string;
@@ -19,7 +19,7 @@ const onFinish = (values: FormState) => {
 </script>
 
 <template>
-  <Container :width="400">
+  <BaseContainer :width="400">
     <Form
       :model="formState"
       autocomplete="off"
@@ -68,5 +68,5 @@ const onFinish = (values: FormState) => {
         </FormItem>
       </Flex>
     </Form>
-  </Container>
+  </BaseContainer>
 </template>
