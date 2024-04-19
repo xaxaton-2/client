@@ -1,0 +1,1 @@
+<template>PostsView</template>
