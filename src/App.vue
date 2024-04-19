@@ -4,7 +4,7 @@ import { ConfigProvider } from 'ant-design-vue';
 import locale from 'ant-design-vue/es/locale/ru_RU';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import Header from './components/base/Header.vue';
+import BaseHeader from './components/base/BaseHeader.vue';
 import { useDepartmentsStore } from './store/departments';
 import { useFacultiesStore } from './store/faculties';
 import { useGroupsStore } from './store/groups';
@@ -36,7 +36,7 @@ onMounted(async () => {
     }"
     :locale="locale"
   >
-    <Header />
+    <BaseHeader />
     <router-view />
   </ConfigProvider>
 </template>

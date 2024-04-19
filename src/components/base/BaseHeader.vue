@@ -21,9 +21,9 @@ import { Flex } from 'ant-design-vue';
 <style scoped lang="scss">
 .header {
   padding: 16px;
+  margin-bottom: 24px;
   color: $white;
   background-color: $primary;
-  margin-bottom: 24px;
 
   a {
     color: inherit;
