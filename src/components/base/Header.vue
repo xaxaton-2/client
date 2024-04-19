@@ -1,6 +1,10 @@
+<script setup lang="ts">
+import { Flex } from 'ant-design-vue';
+</script>
+
 <template>
   <header class="header">
-    <a-flex gap="large">
+    <Flex gap="large">
       <router-link to="/">LifeCourse</router-link>
       <router-link to="/posts">Лента новостей</router-link>
       <router-link
@@ -10,7 +14,7 @@
         Вход
       </router-link>
       <router-link to="/register">Регистрация</router-link>
-    </a-flex>
+    </Flex>
   </header>
 </template>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { TabPane, Tabs } from 'ant-design-vue';
 import Container from '@/components/base/Container.vue';
 import CompanyRegisterForm from '@/components/register/CompanyRegisterForm.vue';
 import StudentRegisterForm from '@/components/register/StudentRegisterForm.vue';
@@ -27,26 +28,23 @@ const tabs = [
 const route = useRoute();
 const router = useRouter();
 
-const key = ref(route.params.key);
-
-watch(key, (key) => {
-  router.push(`/register/${key}`);
-});
+const key = ref(route.params.key.toString());
 </script>
 
 <template>
   <Container>
-    <a-tabs
+    <Tabs
       v-model:active-key="key"
       centered
+      @change="router.push(`/register/${key}`)"
     >
-      <a-tab-pane
+      <TabPane
         v-for="tab in tabs"
         :key="tab.key"
         :tab="tab.tab"
       >
         <component :is="tab.component" />
-      </a-tab-pane>
-    </a-tabs>
+      </TabPane>
+    </Tabs>
   </Container>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { UploadFile } from 'ant-design-vue';
-import { FormInstance } from 'ant-design-vue/es/form';
+import { Button, Col, Flex, Form, Input, Row, Upload, UploadFile } from 'ant-design-vue';
+import { FormInstance, FormItem } from 'ant-design-vue/es/form';
 import { validatePass, validatePass2 } from '@/utils/validation';
 
 interface FormState {
@@ -9,7 +9,7 @@ interface FormState {
   password: string;
   repeatPassword: string;
   name: string;
-  image: UploadFile | null;
+  image: UploadFile[];
 }
 
 const formState = reactive<FormState>({
@@ -17,7 +17,7 @@ const formState = reactive<FormState>({
   password: '',
   repeatPassword: '',
   name: '',
-  image: null,
+  image: [],
 });
 
 const formRef = ref<FormInstance | null>(null);
@@ -28,16 +28,16 @@ const onFinish = (values: FormState) => {
 </script>
 
 <template>
-  <a-form
+  <Form
     ref="formRef"
     :model="formState"
     autocomplete="off"
     layout="vertical"
     @finish="onFinish"
   >
-    <a-row :gutter="24">
-      <a-col :span="12">
-        <a-form-item
+    <Row :gutter="24">
+      <Col :span="12">
+        <FormItem
           label="Email"
           name="email"
           :rules="[
@@ -45,13 +45,13 @@ const onFinish = (values: FormState) => {
             { type: 'email', message: 'Некорректный email!' },
           ]"
         >
-          <a-input
+          <Input
             v-model:value="formState.email"
             placeholder="Введите email"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Пароль"
           name="password"
           :rules="[
@@ -62,66 +62,66 @@ const onFinish = (values: FormState) => {
             },
           ]"
         >
-          <a-input
+          <Input
             v-model:value="formState.password"
             placeholder="Введите пароль"
             type="password"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Повторите пароль"
           name="repeatPassword"
           :rules="[
             { required: true, validator: validatePass2(formState.password), trigger: 'blur' },
           ]"
         >
-          <a-input
+          <Input
             v-model:value="formState.repeatPassword"
             placeholder="Повторите пароль"
             type="password"
           />
-        </a-form-item>
-      </a-col>
+        </FormItem>
+      </Col>
 
-      <a-col :span="12">
-        <a-form-item
+      <Col :span="12">
+        <FormItem
           label="Наименование"
           name="name"
           :rules="[{ required: true, message: 'Пожалуйста введите наименование!' }]"
         >
-          <a-input
+          <Input
             v-model:value="formState.name"
             placeholder="Введите наименование"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Фото"
           name="image"
         >
-          <a-upload
+          <Upload
             v-model:file-list="formState.image"
             name="image"
             accept="image/*"
             :max-count="1"
             :before-upload="() => false"
           >
-            <a-button block>Выбрать фото</a-button>
-          </a-upload>
-        </a-form-item>
-      </a-col>
-    </a-row>
+            <Button block>Выбрать фото</Button>
+          </Upload>
+        </FormItem>
+      </Col>
+    </Row>
 
-    <a-flex justify="center">
-      <a-form-item>
-        <a-button
+    <Flex justify="center">
+      <FormItem>
+        <Button
           type="primary"
           html-type="submit"
         >
           Зарегистрироваться
-        </a-button>
-      </a-form-item>
-    </a-flex>
-  </a-form>
+        </Button>
+      </FormItem>
+    </Flex>
+  </Form>
 </template>

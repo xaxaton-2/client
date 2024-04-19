@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { UploadFile } from 'ant-design-vue';
-import { FormInstance } from 'ant-design-vue/es/form';
+import {
+  Button,
+  Col,
+  Flex,
+  Form,
+  Input,
+  Row,
+  Select,
+  SelectOption,
+  Upload,
+  UploadFile,
+} from 'ant-design-vue';
+import { FormInstance, FormItem } from 'ant-design-vue/es/form';
 import { useDepartmentsStore } from '@/store/departments';
 import { useFacultiesStore } from '@/store/faculties';
 import { useGroupsStore } from '@/store/groups';
@@ -15,11 +26,11 @@ interface FormState {
   name: string;
   surname: string;
   patronymic: string;
-  image: UploadFile | null;
-  universityId: number | null;
-  facultyId: number | null;
-  departmentId: number | null;
-  groupId: number | null;
+  image: UploadFile[];
+  universityId?: number;
+  facultyId?: number;
+  departmentId?: number;
+  groupId?: number;
 }
 
 const universitiesStore = useUniversitiesStore();
@@ -34,11 +45,11 @@ const formState = reactive<FormState>({
   name: '',
   surname: '',
   patronymic: '',
-  image: null,
-  universityId: null,
-  facultyId: null,
-  departmentId: null,
-  groupId: null,
+  image: [],
+  universityId: undefined,
+  facultyId: undefined,
+  departmentId: undefined,
+  groupId: undefined,
 });
 
 const formRef = ref<FormInstance | null>(null);
@@ -49,16 +60,16 @@ const onFinish = (values: FormState) => {
 </script>
 
 <template>
-  <a-form
+  <Form
     ref="formRef"
     :model="formState"
     autocomplete="off"
     layout="vertical"
     @finish="onFinish"
   >
-    <a-row :gutter="24">
-      <a-col :span="8">
-        <a-form-item
+    <Row :gutter="24">
+      <Col :span="8">
+        <FormItem
           label="Email"
           name="email"
           :rules="[
@@ -66,13 +77,13 @@ const onFinish = (values: FormState) => {
             { type: 'email', message: 'Некорректный email!' },
           ]"
         >
-          <a-input
+          <Input
             v-model:value="formState.email"
             placeholder="Введите email"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Пароль"
           name="password"
           :rules="[
@@ -83,172 +94,172 @@ const onFinish = (values: FormState) => {
             },
           ]"
         >
-          <a-input
+          <Input
             v-model:value="formState.password"
             placeholder="Введите пароль"
             type="password"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Повторите пароль"
           name="repeatPassword"
           :rules="[
             { required: true, validator: validatePass2(formState.password), trigger: 'blur' },
           ]"
         >
-          <a-input
+          <Input
             v-model:value="formState.repeatPassword"
             placeholder="Повторите пароль"
             type="password"
           />
-        </a-form-item>
-      </a-col>
+        </FormItem>
+      </Col>
 
-      <a-col :span="8">
-        <a-form-item
+      <Col :span="8">
+        <FormItem
           label="Фамилия"
           name="surname"
           :rules="[{ required: true, message: 'Пожалуйста введите фамилию!' }]"
         >
-          <a-input
+          <Input
             v-model:value="formState.surname"
             placeholder="Введите фамилию"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Имя"
           name="name"
           :rules="[{ required: true, message: 'Пожалуйста введите имя!' }]"
         >
-          <a-input
+          <Input
             v-model:value="formState.name"
             placeholder="Введите имя"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Отчество"
           name="patronymic"
         >
-          <a-input
+          <Input
             v-model:value="formState.patronymic"
             placeholder="Введите отчество"
           />
-        </a-form-item>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           label="Фото"
           name="image"
         >
-          <a-upload
+          <Upload
             v-model:file-list="formState.image"
             name="image"
             accept="image/*"
             :max-count="1"
             :before-upload="() => false"
           >
-            <a-button block>Выбрать фото</a-button>
-          </a-upload>
-        </a-form-item>
-      </a-col>
+            <Button block>Выбрать фото</Button>
+          </Upload>
+        </FormItem>
+      </Col>
 
-      <a-col :span="8">
-        <a-form-item
+      <Col :span="8">
+        <FormItem
           name="universityId"
           label="Университет"
           :rules="[{ required: true, message: 'Пожалуйста выберите университет!' }]"
         >
-          <a-select
+          <Select
             v-model:value="formState.universityId"
             :loading="universitiesStore.isLoading"
             placeholder="Выберите университет"
           >
-            <a-select-option
+            <SelectOption
               v-for="university in universitiesStore.universities"
               :key="university.id"
               :value="university.id"
             >
               {{ university.name }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
+            </SelectOption>
+          </Select>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           name="facultyId"
           label="Факультет"
           :rules="[{ required: true, message: 'Пожалуйста выберите факультет!' }]"
         >
-          <a-select
+          <Select
             v-model:value="formState.facultyId"
             :loading="facultiesStore.isLoading"
             :disabled="!formState.universityId"
             placeholder="Выберите факультет"
           >
-            <a-select-option
+            <SelectOption
               v-for="faculty in facultiesStore.faculties"
               :key="faculty.id"
               :value="faculty.id"
             >
               {{ faculty.name }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
+            </SelectOption>
+          </Select>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           name="departmentId"
           label="Кафедра"
           :rules="[{ required: true, message: 'Пожалуйста выберите кафедру!' }]"
         >
-          <a-select
+          <Select
             v-model:value="formState.departmentId"
             :loading="departmentsStore.isLoading"
             :disabled="!formState.facultyId"
             placeholder="Выберите кафедру"
           >
-            <a-select-option
+            <SelectOption
               v-for="department in departmentsStore.departments"
               :key="department.id"
               :value="department.id"
             >
               {{ department.name }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
+            </SelectOption>
+          </Select>
+        </FormItem>
 
-        <a-form-item
+        <FormItem
           name="groupId"
           label="Группа"
           :rules="[{ required: true, message: 'Пожалуйста выберите группу!' }]"
         >
-          <a-select
+          <Select
             v-model:value="formState.groupId"
             :loading="groupsStore.isLoading"
             :disabled="!formState.departmentId"
             placeholder="Выберите группу"
           >
-            <a-select-option
+            <SelectOption
               v-for="group in groupsStore.groups"
               :key="group.id"
               :value="group.id"
             >
               {{ group.name }}
-            </a-select-option>
-          </a-select>
-        </a-form-item></a-col
+            </SelectOption>
+          </Select>
+        </FormItem></Col
       >
-    </a-row>
+    </Row>
 
-    <a-flex justify="center">
-      <a-form-item>
-        <a-button
+    <Flex justify="center">
+      <FormItem>
+        <Button
           type="primary"
           html-type="submit"
         >
           Зарегистрироваться
-        </a-button>
-      </a-form-item>
-    </a-flex>
-  </a-form>
+        </Button>
+      </FormItem>
+    </Flex>
+  </Form>
 </template>
