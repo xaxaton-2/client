@@ -87,7 +87,7 @@ const student = computed(() => studentsStore.studentsMap[props.post.studentId]);
       </template>
 
       <template #datetime>
-        <Tooltip :title="dayjs(post.date).format('DD MMM в HH:mm')">
+        <Tooltip :title="dayjs(post.date).format('D MMM в HH:mm')">
           <span>{{ dayjs(post.date).fromNow() }}</span>
         </Tooltip>
       </template>

@@ -32,7 +32,7 @@ const eventType = computed(() => eventsStore.eventTypesMap[props.event.eventType
 
       <Space :size="4">
         <CalendarOutlined />
-        <Typography>{{ dayjs(event.date).format('DD.MM.YYYY') }}</Typography>
+        <Typography>{{ dayjs(event.date).format('D MMM YYYY') }}</Typography>
       </Space>
     </Flex>
   </Card>
