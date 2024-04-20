@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { LikeFilled, CalendarOutlined } from '@ant-design/icons-vue';
+import { computed } from 'vue';
+import { LikeFilled, CalendarOutlined, UserOutlined } from '@ant-design/icons-vue';
 import { Avatar, Card, Comment, Flex, Space, Tag, Tooltip, Typography } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { useStudentsStore } from '@/store/students';
 import { Post } from '@/types/posts';
 import { getFullName } from '@/utils/strings';
 
-defineProps<{
+const props = defineProps<{
   post: Post;
 }>();
 
 const colors = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
 
 const studentsStore = useStudentsStore();
+
+const student = computed(() => studentsStore.studentsMap[props.post.studentId]);
 </script>
 
 <template>
@@ -38,13 +41,20 @@ const studentsStore = useStudentsStore();
 
       <template #author>
         <RouterLink :to="`/students/${post.studentId}`">
-          {{ getFullName(studentsStore.studentsMap[post.studentId]) }}
+          {{ getFullName(student) }}
         </RouterLink>
       </template>
 
       <template #avatar>
         <RouterLink :to="`/students/${post.studentId}`">
-          <Avatar :src="studentsStore.studentsMap[post.studentId].image" />
+          <Avatar :src="student.image">
+            <template
+              v-if="!student.image"
+              #icon
+            >
+              <UserOutlined />
+            </template>
+          </Avatar>
         </RouterLink>
       </template>
 

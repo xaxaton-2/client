@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { CalendarOutlined, IdcardOutlined, ReadOutlined } from '@ant-design/icons-vue';
+import { ApartmentOutlined, CalendarOutlined, MessageOutlined } from '@ant-design/icons-vue';
 import { Card, Flex, Menu, MenuProps } from 'ant-design-vue';
 import { MenuClickEventHandler } from 'ant-design-vue/es/menu/src/interface';
 import BaseContainer from '@/components/base/BaseContainer.vue';
@@ -9,8 +9,8 @@ import BaseContainer from '@/components/base/BaseContainer.vue';
 const menu: MenuProps['items'] = [
   {
     key: 'profile',
-    icon: () => h(IdcardOutlined),
-    label: 'Профиль',
+    icon: () => h(ApartmentOutlined),
+    label: 'Структура',
   },
   {
     key: 'events',
@@ -19,7 +19,7 @@ const menu: MenuProps['items'] = [
   },
   {
     key: 'requests',
-    icon: () => h(ReadOutlined),
+    icon: () => h(MessageOutlined),
     label: 'Заявки',
   },
 ];

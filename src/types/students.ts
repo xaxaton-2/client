@@ -4,8 +4,8 @@ export interface Student {
   surname: string;
   patronymic: string;
   score: number;
-  image: string;
   groupId: number;
+  image?: string;
 }
 
 export interface StudentsState {

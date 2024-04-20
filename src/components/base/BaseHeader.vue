@@ -7,6 +7,7 @@ import { Flex, LayoutHeader } from 'ant-design-vue';
     <Flex gap="large">
       <router-link to="/">LifeCourse</router-link>
       <router-link to="/posts">Лента новостей</router-link>
+      <router-link to="/universities">Университеты</router-link>
       <router-link
         class="login"
         to="/login"

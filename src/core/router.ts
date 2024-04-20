@@ -13,7 +13,10 @@ import StudentEventsView from '@/views/StudentEventsView.vue';
 import StudentPostsView from '@/views/StudentPostsView.vue';
 import StudentProfileView from '@/views/StudentProfileView.vue';
 import TermsOfUseView from '@/views/TermsOfUseView.vue';
+import UniversitiesView from '@/views/UniversitiesView.vue';
+import UniversityEventsView from '@/views/UniversityEventsView.vue';
 import UniversityProfileView from '@/views/UniversityProfileView.vue';
+import UniversityRequestsView from '@/views/UniversityRequestsView.vue';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +69,10 @@ export const router = createRouter({
           ],
         },
         {
+          path: '/universities',
+          component: UniversitiesView,
+        },
+        {
           path: '/universities/:id',
           component: UniversityLayout,
           children: [
@@ -77,12 +84,12 @@ export const router = createRouter({
             {
               path: '/universities/:id/events',
               name: 'university-events',
-              component: UniversityProfileView,
+              component: UniversityEventsView,
             },
             {
               path: '/universities/:id/requests',
               name: 'university-requests',
-              component: UniversityProfileView,
+              component: UniversityRequestsView,
             },
           ],
         },

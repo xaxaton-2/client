@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { StarFilled } from '@ant-design/icons-vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { StarFilled, UserOutlined } from '@ant-design/icons-vue';
 import { Alert, Avatar, Card, Flex, Space, TypographyTitle, AlertProps } from 'ant-design-vue';
 import { OhVueIcon } from 'oh-vue-icons';
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
@@ -52,7 +52,6 @@ const achievements = [
 ];
 
 const route = useRoute();
-const router = useRouter();
 const universitiesStore = useUniversitiesStore();
 const facultiesStore = useFacultiesStore();
 const departmentsStore = useDepartmentsStore();
@@ -71,16 +70,6 @@ const department = computed(() => departmentsStore.departmentsMap[group.value.de
 const faculty = computed(() => facultiesStore.facultiesMap[department.value.facultyId]);
 
 const university = computed(() => universitiesStore.universitiesMap[faculty.value.universityId]);
-
-watch(
-  [student, () => studentsStore.isLoading],
-  ([student, isLoading]) => {
-    if (!student && !isLoading) {
-      router.push('/');
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
@@ -100,7 +89,14 @@ watch(
           :src="student.image"
           :size="96"
           class="avatar"
-        />
+        >
+          <template
+            v-if="!student.image"
+            #icon
+          >
+            <UserOutlined />
+          </template>
+        </Avatar>
 
         <TypographyTitle :level="3">
           <div>

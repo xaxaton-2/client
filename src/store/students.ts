@@ -26,8 +26,6 @@ export const useStudentsStore = defineStore('students', {
             surname: 'Иванов',
             patronymic: 'Иванович',
             score: 85,
-            image:
-              'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
             groupId: 1,
           },
           {
