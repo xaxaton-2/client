@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import MainLayout from '@/layouts/MainLayout.vue';
 import LoginView from '@/views/LoginView.vue';
 import MainView from '@/views/MainView.vue';
 import PostsView from '@/views/PostsView.vue';
@@ -9,25 +10,31 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      component: MainView,
-    },
-    {
-      path: '/login',
-      component: LoginView,
-    },
-    {
-      path: '/register',
-      redirect: '/register/student',
+      component: MainLayout,
       children: [
         {
-          path: '/register/:key',
-          component: RegisterView,
+          path: '/',
+          component: MainView,
+        },
+        {
+          path: '/login',
+          component: LoginView,
+        },
+        {
+          path: '/register',
+          redirect: '/register/student',
+          children: [
+            {
+              path: '/register/:key',
+              component: RegisterView,
+            },
+          ],
+        },
+        {
+          path: '/posts',
+          component: PostsView,
         },
       ],
-    },
-    {
-      path: '/posts',
-      component: PostsView,
     },
   ],
 });

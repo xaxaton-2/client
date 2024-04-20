@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { StarFilled, UserOutlined } from '@ant-design/icons-vue';
 import { Avatar, Button, Card, Flex, Space, Typography } from 'ant-design-vue';
-import Container from '@/components/base/Container.vue';
+import BaseContainer from '@/components/base/BaseContainer.vue';
 </script>
 
 <template>
-  <Container>
+  <BaseContainer>
     <Space
       direction="vertical"
       size="large"
@@ -91,7 +91,7 @@ import Container from '@/components/base/Container.vue';
         </Flex>
       </Card>
     </Space>
-  </Container>
+  </BaseContainer>
 </template>
 
 <style scoped lang="scss">

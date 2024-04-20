@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { TabPane, Tabs } from 'ant-design-vue';
-import Container from '@/components/base/Container.vue';
+import BaseContainer from '@/components/base/BaseContainer.vue';
 import CompanyRegisterForm from '@/components/register/CompanyRegisterForm.vue';
 import StudentRegisterForm from '@/components/register/StudentRegisterForm.vue';
 import UniversityRegisterForm from '@/components/register/UniversityRegisterForm.vue';
@@ -32,7 +32,7 @@ const key = ref(route.params.key.toString());
 </script>
 
 <template>
-  <Container>
+  <BaseContainer>
     <Tabs
       v-model:active-key="key"
       centered
@@ -46,5 +46,5 @@ const key = ref(route.params.key.toString());
         <component :is="tab.component" />
       </TabPane>
     </Tabs>
-  </Container>
+  </BaseContainer>
 </template>

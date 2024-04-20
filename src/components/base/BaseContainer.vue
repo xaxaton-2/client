@@ -18,7 +18,7 @@ withDefaults(defineProps<Props>(), { width: 1000 });
 <style scoped lang="scss">
 .container {
   width: 100%;
-  padding: 0 16px;
+  padding: 0 24px;
   margin: 0 auto;
 }
 </style>
