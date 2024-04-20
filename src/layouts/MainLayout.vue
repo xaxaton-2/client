@@ -9,7 +9,7 @@ import BaseHeader from '@/components/base/BaseHeader.vue';
     <BaseHeader />
 
     <LayoutContent class="content">
-      <router-view />
+      <RouterView />
     </LayoutContent>
 
     <BaseFooter />
@@ -18,6 +18,8 @@ import BaseHeader from '@/components/base/BaseHeader.vue';
 
 <style scoped lang="scss">
 .content {
+  display: flex;
+  flex-direction: column;
   padding: 24px 0;
 }
 </style>

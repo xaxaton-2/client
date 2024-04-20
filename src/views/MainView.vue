@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { StarFilled, UserOutlined } from '@ant-design/icons-vue';
+import { StarFilled } from '@ant-design/icons-vue';
 import { Avatar, Button, Card, Flex, Space, Typography } from 'ant-design-vue';
 import BaseContainer from '@/components/base/BaseContainer.vue';
+import { useStudentsStore } from '@/store/students';
+
+const studentsStore = useStudentsStore();
 </script>
 
 <template>
@@ -72,21 +75,32 @@ import BaseContainer from '@/components/base/BaseContainer.vue';
             align="center"
             gap="middle"
           >
-            <Flex
+            <RouterLink
               v-for="m in 5"
               :key="m"
-              align="center"
-              gap="small"
-              vertical
+              class="student"
+              :to="`/students/${studentsStore.students[m * n - 1].id}`"
             >
-              <Avatar :size="36">
-                <template #icon>
-                  <UserOutlined />
-                </template>
-              </Avatar>
+              <Flex
+                align="center"
+                gap="small"
+                vertical
+              >
+                <Avatar
+                  :src="studentsStore.students[m * n - 1].image"
+                  size="large"
+                />
 
-              <Typography>Иванов И. И.</Typography>
-            </Flex>
+                <div class="name">
+                  <div>
+                    {{ studentsStore.students[m * n - 1].name }}
+                    {{ studentsStore.students[m * n - 1].surname }}
+                  </div>
+
+                  <div>{{ studentsStore.students[m * n - 1].patronymic }}</div>
+                </div>
+              </Flex>
+            </RouterLink>
           </Flex>
         </Flex>
       </Card>
@@ -98,5 +112,13 @@ import BaseContainer from '@/components/base/BaseContainer.vue';
 .star {
   font-size: 36px;
   color: $primary;
+}
+
+.student {
+  width: 20%;
+}
+
+.name {
+  text-align: center;
 }
 </style>
