@@ -2,19 +2,17 @@
 import { onMounted } from 'vue';
 import { ConfigProvider } from 'ant-design-vue';
 import locale from 'ant-design-vue/es/locale/ru_RU';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ru';
 import { useDepartmentsStore } from './store/departments';
 import { useFacultiesStore } from './store/faculties';
 import { useGroupsStore } from './store/groups';
+import { useStudentsStore } from './store/students';
 import { useUniversitiesStore } from './store/universities';
-
-dayjs.locale('ru');
 
 const universitiesStore = useUniversitiesStore();
 const facultiesStore = useFacultiesStore();
 const departmentsStore = useDepartmentsStore();
 const groupsStore = useGroupsStore();
+const studentsStore = useStudentsStore();
 
 onMounted(async () => {
   await Promise.all([
@@ -22,6 +20,7 @@ onMounted(async () => {
     facultiesStore.getFaculties(),
     departmentsStore.getDepartments(),
     groupsStore.getGroups(),
+    studentsStore.getStudents(),
   ]);
 });
 

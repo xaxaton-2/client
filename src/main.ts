@@ -1,14 +1,36 @@
 import { createApp } from 'vue';
 import ui from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { addIcons } from 'oh-vue-icons';
-import { BiTelegram, BiWhatsapp, CoVk } from 'oh-vue-icons/icons';
+import {
+  BiEasel2Fill,
+  BiTelegram,
+  BiWhatsapp,
+  CoVk,
+  MdScience,
+  MdSportsbasketball,
+  MdVolunteeractivism,
+} from 'oh-vue-icons/icons';
 import App from './App.vue';
 import './assets/styles/index.scss';
 import { router } from './core/router';
 import { store } from './core/store';
 
-addIcons(BiTelegram, CoVk, BiWhatsapp);
+dayjs.locale('ru');
+dayjs.extend(relativeTime);
+
+addIcons(
+  BiTelegram,
+  CoVk,
+  BiWhatsapp,
+  MdScience,
+  MdSportsbasketball,
+  BiEasel2Fill,
+  MdVolunteeractivism,
+);
 
 const app = createApp(App);
 
