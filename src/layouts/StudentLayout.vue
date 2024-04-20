@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { computed, h } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { CalendarOutlined, IdcardOutlined, ReadOutlined } from '@ant-design/icons-vue';
+import {
+  CalendarOutlined,
+  IdcardOutlined,
+  LineChartOutlined,
+  ReadOutlined,
+} from '@ant-design/icons-vue';
 import { Card, Flex, Menu, MenuProps } from 'ant-design-vue';
 import { MenuClickEventHandler } from 'ant-design-vue/es/menu/src/interface';
 import BaseContainer from '@/components/base/BaseContainer.vue';
@@ -21,6 +26,11 @@ const menu: MenuProps['items'] = [
     key: 'events',
     icon: () => h(CalendarOutlined),
     label: 'Мероприятия',
+  },
+  {
+    key: 'stats',
+    icon: () => h(LineChartOutlined),
+    label: 'Статистика',
   },
 ];
 

@@ -12,6 +12,7 @@ import RegisterView from '@/views/RegisterView.vue';
 import StudentEventsView from '@/views/StudentEventsView.vue';
 import StudentPostsView from '@/views/StudentPostsView.vue';
 import StudentProfileView from '@/views/StudentProfileView.vue';
+import StudentStatsView from '@/views/StudentStatsView.vue';
 import TermsOfUseView from '@/views/TermsOfUseView.vue';
 import UniversitiesView from '@/views/UniversitiesView.vue';
 import UniversityEventsView from '@/views/UniversityEventsView.vue';
@@ -65,6 +66,11 @@ export const router = createRouter({
               path: '/students/:id/events',
               name: 'student-events',
               component: StudentEventsView,
+            },
+            {
+              path: '/students/:id/stats',
+              name: 'student-stats',
+              component: StudentStatsView,
             },
           ],
         },
