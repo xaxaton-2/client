@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import MainLayout from '@/layouts/MainLayout.vue';
 import StudentLayout from '@/layouts/StudentLayout.vue';
+import UniversityLayout from '@/layouts/UniversityLayout.vue';
+import AboutView from '@/views/AboutView.vue';
 import LoginView from '@/views/LoginView.vue';
 import MainView from '@/views/MainView.vue';
+import PartnersView from '@/views/PartnersView.vue';
 import PostsView from '@/views/PostsView.vue';
+import PrivacyView from '@/views/PrivacyView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import StudentEventsView from '@/views/StudentEventsView.vue';
 import StudentPostsView from '@/views/StudentPostsView.vue';
 import StudentProfileView from '@/views/StudentProfileView.vue';
+import TermsOfUseView from '@/views/TermsOfUseView.vue';
+import UniversityProfileView from '@/views/UniversityProfileView.vue';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +64,43 @@ export const router = createRouter({
               component: StudentEventsView,
             },
           ],
+        },
+        {
+          path: '/universities/:id',
+          component: UniversityLayout,
+          children: [
+            {
+              path: '/universities/:id',
+              name: 'university-profile',
+              component: UniversityProfileView,
+            },
+            {
+              path: '/universities/:id/events',
+              name: 'university-events',
+              component: UniversityProfileView,
+            },
+            {
+              path: '/universities/:id/requests',
+              name: 'university-requests',
+              component: UniversityProfileView,
+            },
+          ],
+        },
+        {
+          path: '/partners',
+          component: PartnersView,
+        },
+        {
+          path: '/about',
+          component: AboutView,
+        },
+        {
+          path: '/privacy',
+          component: PrivacyView,
+        },
+        {
+          path: '/terms-of-use',
+          component: TermsOfUseView,
         },
       ],
     },
