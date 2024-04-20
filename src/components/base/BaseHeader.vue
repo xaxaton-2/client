@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Flex } from 'ant-design-vue';
+import { Flex, LayoutHeader } from 'ant-design-vue';
 </script>
 
 <template>
-  <header class="header">
+  <LayoutHeader class="header">
     <Flex gap="large">
       <router-link to="/">LifeCourse</router-link>
       <router-link to="/posts">Лента новостей</router-link>
@@ -15,13 +15,14 @@ import { Flex } from 'ant-design-vue';
       </router-link>
       <router-link to="/register">Регистрация</router-link>
     </Flex>
-  </header>
+  </LayoutHeader>
 </template>
 
 <style scoped lang="scss">
 .header {
+  height: auto;
   padding: 16px;
-  margin-bottom: 24px;
+  line-height: inherit;
   color: $white;
   background-color: $primary;
 

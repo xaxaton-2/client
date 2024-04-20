@@ -4,7 +4,6 @@ import { ConfigProvider } from 'ant-design-vue';
 import locale from 'ant-design-vue/es/locale/ru_RU';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import BaseHeader from './components/base/BaseHeader.vue';
 import { useDepartmentsStore } from './store/departments';
 import { useFacultiesStore } from './store/faculties';
 import { useGroupsStore } from './store/groups';
@@ -25,6 +24,8 @@ onMounted(async () => {
     groupsStore.getGroups(),
   ]);
 });
+
+// TODO профиль студента
 </script>
 
 <template>
@@ -36,7 +37,6 @@ onMounted(async () => {
     }"
     :locale="locale"
   >
-    <BaseHeader />
-    <router-view />
+    <RouterView />
   </ConfigProvider>
 </template>
