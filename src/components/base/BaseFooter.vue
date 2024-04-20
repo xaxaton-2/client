@@ -29,7 +29,7 @@ import { OhVueIcon } from 'oh-vue-icons';
 
           <Typography>soznanie@mail.ru</Typography>
 
-          <Space>
+          <Space class="social">
             <OhVueIcon
               :scale="1.5"
               name="bi-telegram"
@@ -72,6 +72,15 @@ import { OhVueIcon } from 'oh-vue-icons';
 
   .ant-typography {
     color: $white;
+  }
+}
+
+.social {
+  :deep(.ant-space-item) {
+    padding: 4px;
+    margin-top: 8px;
+    background-color: $white;
+    border-radius: 8px;
   }
 }
 </style>

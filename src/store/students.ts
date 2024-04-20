@@ -1,6 +1,7 @@
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 import { Student, StudentsState } from '@/types/students';
+import { sleep } from '@/utils/promises';
 import { arrayToMap } from '@/utils/structures';
 
 export const useStudentsStore = defineStore('students', {
@@ -17,6 +18,7 @@ export const useStudentsStore = defineStore('students', {
     async getStudents() {
       this.isLoading = true;
       try {
+        await sleep(1000);
         this.students = [
           {
             id: 1,
@@ -120,7 +122,7 @@ export const useStudentsStore = defineStore('students', {
           },
         ];
       } catch {
-        message.error('Ошибка при загрузке групп!');
+        message.error('Ошибка при загрузке студентов!');
       } finally {
         this.isLoading = false;
       }

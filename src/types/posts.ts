@@ -17,7 +17,7 @@ export interface Post {
   date: string;
   studentId: number;
   text: string;
-  image: string;
+  image?: string;
   hashtags: string;
   event: Event;
   likes: number;
