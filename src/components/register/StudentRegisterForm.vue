@@ -6,6 +6,7 @@ import {
   Flex,
   Form,
   Input,
+  InputPassword,
   Row,
   Select,
   SelectOption,
@@ -94,10 +95,9 @@ const onFinish = (values: FormState) => {
             },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.password"
             placeholder="Введите пароль"
-            type="password"
           />
         </FormItem>
 
@@ -108,10 +108,9 @@ const onFinish = (values: FormState) => {
             { required: true, validator: validatePass2(formState.password), trigger: 'blur' },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.repeatPassword"
             placeholder="Повторите пароль"
-            type="password"
           />
         </FormItem>
       </Col>

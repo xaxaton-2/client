@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Button, Flex, Form, FormItem, Input } from 'ant-design-vue';
+import { Button, Flex, Form, FormItem, Input, InputPassword } from 'ant-design-vue';
 import BaseContainer from '@/components/base/BaseContainer.vue';
 
 interface FormState {
@@ -50,10 +50,9 @@ const onFinish = (values: FormState) => {
           },
         ]"
       >
-        <Input
+        <InputPassword
           v-model:value="formState.password"
           placeholder="Введите пароль"
-          type="password"
         />
       </FormItem>
 
