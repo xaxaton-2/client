@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { Button, Col, Flex, Form, Input, Row, Upload, UploadFile } from 'ant-design-vue';
+import {
+  Button,
+  Col,
+  Flex,
+  Form,
+  Input,
+  InputPassword,
+  Row,
+  Upload,
+  UploadFile,
+} from 'ant-design-vue';
 import { FormInstance, FormItem } from 'ant-design-vue/es/form';
 import { validatePass, validatePass2 } from '@/utils/validation';
 
@@ -64,10 +74,9 @@ const onFinish = (values: FormState) => {
             },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.password"
             placeholder="Введите пароль"
-            type="password"
           />
         </FormItem>
 
@@ -78,10 +87,9 @@ const onFinish = (values: FormState) => {
             { required: true, validator: validatePass2(formState.password), trigger: 'blur' },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.repeatPassword"
             placeholder="Повторите пароль"
-            type="password"
           />
         </FormItem>
       </Col>
