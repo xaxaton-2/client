@@ -1,7 +1,8 @@
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
-import { EventsState } from '@/types/events';
+import { Event, EventsState } from '@/types/events';
 import { sleep } from '@/utils/promises';
+import { arrayToMap } from '@/utils/structures';
 
 export const useEventsStore = defineStore('events', {
   state: (): EventsState => ({
@@ -28,9 +29,13 @@ export const useEventsStore = defineStore('events', {
         score: 2,
       },
     },
-
     isLoading: false,
   }),
+  getters: {
+    eventsMap(): Record<number, Event> {
+      return arrayToMap(this.events, 'id');
+    },
+  },
   actions: {
     async getEvents() {
       this.isLoading = true;

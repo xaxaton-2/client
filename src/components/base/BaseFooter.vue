@@ -23,7 +23,7 @@ import { OhVueIcon } from 'oh-vue-icons';
         >
           <Typography>ООО СОЗНАНИЕ</Typography>
 
-          <Typography>
+          <Typography class="address">
             460048, Оренбургская область, г Оренбург, Томилинская ул, д. 238, помещ. 2
           </Typography>
 
@@ -84,5 +84,9 @@ import { OhVueIcon } from 'oh-vue-icons';
     background-color: $white;
     border-radius: 8px;
   }
+}
+
+.address {
+  white-space: nowrap;
 }
 </style>

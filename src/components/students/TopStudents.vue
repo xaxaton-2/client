@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { StarFilled } from '@ant-design/icons-vue';
+import { StarFilled, UserOutlined } from '@ant-design/icons-vue';
 import { Avatar, Card, Flex, Typography } from 'ant-design-vue';
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
 import { useStudentsStore } from '@/store/students';
@@ -46,7 +46,14 @@ const studentsStore = useStudentsStore();
             <Avatar
               :src="studentsStore.students[m * n - 1].image"
               size="large"
-            />
+            >
+              <template
+                v-if="!studentsStore.students[m * n - 1].image"
+                #icon
+              >
+                <UserOutlined />
+              </template>
+            </Avatar>
 
             <div class="name">
               <div>

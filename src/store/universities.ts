@@ -1,6 +1,7 @@
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 import { UniversitiesState, University } from '@/types/universities';
+import { sleep } from '@/utils/promises';
 import { arrayToMap } from '@/utils/structures';
 
 export const useUniversitiesStore = defineStore('universities', {
@@ -17,6 +18,7 @@ export const useUniversitiesStore = defineStore('universities', {
     async getUniversities() {
       this.isLoading = true;
       try {
+        await sleep();
         this.universities = [
           {
             id: 1,
