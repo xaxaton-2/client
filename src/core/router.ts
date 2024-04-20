@@ -5,6 +5,7 @@ import LoginView from '@/views/LoginView.vue';
 import MainView from '@/views/MainView.vue';
 import PostsView from '@/views/PostsView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import StudentEventsView from '@/views/StudentEventsView.vue';
 import StudentPostsView from '@/views/StudentPostsView.vue';
 import StudentProfileView from '@/views/StudentProfileView.vue';
 
@@ -50,6 +51,11 @@ export const router = createRouter({
               path: '/students/:id/posts',
               name: 'student-posts',
               component: StudentPostsView,
+            },
+            {
+              path: '/students/:id/events',
+              name: 'student-events',
+              component: StudentEventsView,
             },
           ],
         },

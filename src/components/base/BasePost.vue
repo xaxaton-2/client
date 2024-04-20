@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LikeFilled } from '@ant-design/icons-vue';
+import { LikeFilled, CalendarOutlined } from '@ant-design/icons-vue';
 import { Avatar, Card, Comment, Flex, Space, Tag, Tooltip, Typography } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { useStudentsStore } from '@/store/students';
@@ -25,6 +25,14 @@ const studentsStore = useStudentsStore();
           </Tooltip>
 
           <Typography>{{ post.likes }}</Typography>
+        </Space>
+
+        <Space
+          :size="2"
+          v-if="post.event"
+        >
+          <CalendarOutlined />
+          <Typography>{{ post.event.name }}</Typography>
         </Space>
       </template>
 
@@ -81,6 +89,12 @@ const studentsStore = useStudentsStore();
 .post {
   :deep(.ant-comment-inner) {
     padding: 0;
+  }
+
+  :deep(.ant-comment-actions) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 

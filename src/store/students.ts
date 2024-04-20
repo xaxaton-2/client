@@ -18,7 +18,7 @@ export const useStudentsStore = defineStore('students', {
     async getStudents() {
       this.isLoading = true;
       try {
-        await sleep(1000);
+        await sleep();
         this.students = [
           {
             id: 1,

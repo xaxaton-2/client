@@ -1,16 +1,4 @@
-export interface EventType {
-  id: number;
-  name: string;
-  score: number;
-}
-
-export interface Event {
-  id: number;
-  name: string;
-  date: string;
-  eventType: EventType;
-  universityId: number;
-}
+import { Event } from './events';
 
 export interface Post {
   id: number;

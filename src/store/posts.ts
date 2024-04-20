@@ -12,7 +12,7 @@ export const usePostsStore = defineStore('posts', {
     async getPosts() {
       this.isLoading = true;
       try {
-        await sleep(1000);
+        await sleep();
         for (let i = 0; i < 5; i++) {
           this.posts.push({
             id: i + 1,
@@ -24,12 +24,8 @@ export const usePostsStore = defineStore('posts', {
             event: {
               id: 1,
               name: 'Чемпионат по программированию',
-              date: '2024-30-04',
-              eventType: {
-                id: 1,
-                name: 'Наука',
-                score: 5,
-              },
+              date: '2024-04-30',
+              eventTypeId: 1,
               universityId: 1,
             },
             likes: Math.floor(Math.random() * 1000),
