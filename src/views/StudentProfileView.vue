@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { StarFilled } from '@ant-design/icons-vue';
 import { Alert, Avatar, Card, Flex, Space, TypographyTitle, AlertProps } from 'ant-design-vue';
 import { OhVueIcon } from 'oh-vue-icons';
+import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
 import { useDepartmentsStore } from '@/store/departments';
 import { useFacultiesStore } from '@/store/faculties';
 import { useGroupsStore } from '@/store/groups';
@@ -72,9 +73,9 @@ const faculty = computed(() => facultiesStore.facultiesMap[department.value.facu
 const university = computed(() => universitiesStore.universitiesMap[faculty.value.universityId]);
 
 watch(
-  student,
-  (student) => {
-    if (!student) {
+  [student, () => studentsStore.isLoading],
+  ([student, isLoading]) => {
+    if (!student && !isLoading) {
       router.push('/');
     }
   },
@@ -83,7 +84,9 @@ watch(
 </script>
 
 <template>
-  <Card v-if="student">
+  <BaseSkeleton v-if="studentsStore.isLoading" />
+
+  <Card v-else-if="student">
     <Flex
       gap="large"
       vertical

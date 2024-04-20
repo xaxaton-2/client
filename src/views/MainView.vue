@@ -2,6 +2,7 @@
 import { StarFilled } from '@ant-design/icons-vue';
 import { Avatar, Button, Card, Flex, Space, Typography } from 'ant-design-vue';
 import BaseContainer from '@/components/base/BaseContainer.vue';
+import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
 import { useStudentsStore } from '@/store/students';
 
 const studentsStore = useStudentsStore();
@@ -9,9 +10,9 @@ const studentsStore = useStudentsStore();
 
 <template>
   <BaseContainer>
-    <Space
-      direction="vertical"
-      size="large"
+    <Flex
+      gap="large"
+      vertical
     >
       <Card>
         <Space
@@ -53,7 +54,9 @@ const studentsStore = useStudentsStore();
         </Space>
       </Card>
 
-      <Card>
+      <BaseSkeleton v-if="studentsStore.isLoading" />
+
+      <Card v-else>
         <Flex
           justify="center"
           gap="large"
@@ -104,7 +107,7 @@ const studentsStore = useStudentsStore();
           </Flex>
         </Flex>
       </Card>
-    </Space>
+    </Flex>
   </BaseContainer>
 </template>
 
