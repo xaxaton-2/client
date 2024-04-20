@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { StarFilled, UserOutlined } from '@ant-design/icons-vue';
 import { Alert, Avatar, Card, Flex, Space, TypographyTitle, AlertProps } from 'ant-design-vue';
 import { OhVueIcon } from 'oh-vue-icons';
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
-import { useDepartmentsStore } from '@/store/departments';
-import { useFacultiesStore } from '@/store/faculties';
-import { useGroupsStore } from '@/store/groups';
+import { useStudent } from '@/composables/student';
 import { useStudentsStore } from '@/store/students';
-import { useUniversitiesStore } from '@/store/universities';
 import { getFullName } from '@/utils/strings';
 
 const achievements = [
@@ -52,24 +48,8 @@ const achievements = [
 ];
 
 const route = useRoute();
-const universitiesStore = useUniversitiesStore();
-const facultiesStore = useFacultiesStore();
-const departmentsStore = useDepartmentsStore();
-const groupsStore = useGroupsStore();
 const studentsStore = useStudentsStore();
-
-const student = computed(() => {
-  const id = Number(route.params.id);
-  return studentsStore.studentsMap[id];
-});
-
-const group = computed(() => groupsStore.groupsMap[student.value.groupId]);
-
-const department = computed(() => departmentsStore.departmentsMap[group.value.departmentId]);
-
-const faculty = computed(() => facultiesStore.facultiesMap[department.value.facultyId]);
-
-const university = computed(() => universitiesStore.universitiesMap[faculty.value.universityId]);
+const { student, group, department, faculty, university } = useStudent(Number(route.params.id));
 </script>
 
 <template>

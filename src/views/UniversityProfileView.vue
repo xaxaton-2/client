@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { StarFilled } from '@ant-design/icons-vue';
 import { Card, Flex, List, ListItem } from 'ant-design-vue';
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
+import { useUniversity } from '@/composables/university';
 import { useDepartmentsStore } from '@/store/departments';
 import { useFacultiesStore } from '@/store/faculties';
 import { useGroupsStore } from '@/store/groups';
@@ -20,6 +21,8 @@ const studentsStore = useStudentsStore();
 
 const id = computed(() => Number(route.params.id));
 
+const { university, faculties, departments, groups, students } = useUniversity(id.value);
+
 const isLoading = computed(() => {
   return (
     universitiesStore.isLoading ||
@@ -28,38 +31,6 @@ const isLoading = computed(() => {
     groupsStore.isLoading ||
     studentsStore.isLoading
   );
-});
-
-const university = computed(() => {
-  return universitiesStore.universitiesMap[id.value];
-});
-
-const faculties = computed(() => {
-  return facultiesStore.faculties.filter((faculty) => faculty.universityId === id.value);
-});
-
-const departments = computed(() => {
-  return departmentsStore.departments.filter((department) => {
-    const faculty = facultiesStore.facultiesMap[department.facultyId];
-    return faculty.universityId === id.value;
-  });
-});
-
-const groups = computed(() => {
-  return groupsStore.groups.filter((group) => {
-    const department = departmentsStore.departmentsMap[group.departmentId];
-    const faculty = facultiesStore.facultiesMap[department.facultyId];
-    return faculty.universityId === id.value;
-  });
-});
-
-const students = computed(() => {
-  return studentsStore.students.filter((student) => {
-    const group = groupsStore.groupsMap[student.groupId];
-    const department = departmentsStore.departmentsMap[group.departmentId];
-    const faculty = facultiesStore.facultiesMap[department.facultyId];
-    return faculty.universityId === id.value;
-  });
 });
 </script>
 
