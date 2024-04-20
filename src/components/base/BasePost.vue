@@ -28,8 +28,8 @@ const studentsStore = useStudentsStore();
         </Space>
 
         <Space
-          :size="2"
           v-if="post.event"
+          :size="2"
         >
           <CalendarOutlined />
           <Typography>{{ post.event.name }}</Typography>

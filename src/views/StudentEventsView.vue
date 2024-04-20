@@ -28,9 +28,9 @@ onMounted(async () => {
   />
 
   <Flex
+    v-else
     gap="middle"
     vertical
-    v-else
   >
     <Card
       v-for="event in eventsStore.events"
