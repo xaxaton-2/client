@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { StarFilled } from '@ant-design/icons-vue';
+import { useRoute } from 'vue-router';
+import { StarFilled, UserOutlined } from '@ant-design/icons-vue';
 import { Alert, Avatar, Card, Flex, Space, TypographyTitle, AlertProps } from 'ant-design-vue';
 import { OhVueIcon } from 'oh-vue-icons';
-import { useDepartmentsStore } from '@/store/departments';
-import { useFacultiesStore } from '@/store/faculties';
-import { useGroupsStore } from '@/store/groups';
+import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
+import { useStudent } from '@/composables/student';
 import { useStudentsStore } from '@/store/students';
-import { useUniversitiesStore } from '@/store/universities';
 import { getFullName } from '@/utils/strings';
 
 const achievements = [
@@ -51,39 +48,14 @@ const achievements = [
 ];
 
 const route = useRoute();
-const router = useRouter();
-const universitiesStore = useUniversitiesStore();
-const facultiesStore = useFacultiesStore();
-const departmentsStore = useDepartmentsStore();
-const groupsStore = useGroupsStore();
 const studentsStore = useStudentsStore();
-
-const student = computed(() => {
-  const id = Number(route.params.id);
-  return studentsStore.studentsMap[id];
-});
-
-const group = computed(() => groupsStore.groupsMap[student.value.groupId]);
-
-const department = computed(() => departmentsStore.departmentsMap[group.value.departmentId]);
-
-const faculty = computed(() => facultiesStore.facultiesMap[department.value.facultyId]);
-
-const university = computed(() => universitiesStore.universitiesMap[faculty.value.universityId]);
-
-watch(
-  student,
-  (student) => {
-    if (!student) {
-      router.push('/');
-    }
-  },
-  { immediate: true },
-);
+const { student, group, department, faculty, university } = useStudent(Number(route.params.id));
 </script>
 
 <template>
-  <Card v-if="student">
+  <BaseSkeleton v-if="studentsStore.isLoading" />
+
+  <Card v-else-if="student">
     <Flex
       gap="large"
       vertical
@@ -94,10 +66,17 @@ watch(
         gap="large"
       >
         <Avatar
-          :src="student.image"
+          :src="student.image || undefined"
           :size="96"
           class="avatar"
-        />
+        >
+          <template
+            v-if="!student.image"
+            #icon
+          >
+            <UserOutlined />
+          </template>
+        </Avatar>
 
         <TypographyTitle :level="3">
           <div>
@@ -107,8 +86,9 @@ watch(
           <div>
             {{ university.name }}
             {{ group.name }}
-            {{ group.course }} курс
           </div>
+
+          <div>{{ group.course }} курс</div>
         </TypographyTitle>
 
         <Flex

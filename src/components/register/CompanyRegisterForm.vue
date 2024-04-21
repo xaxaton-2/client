@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { Button, Col, Flex, Form, Input, Row, Upload, UploadFile } from 'ant-design-vue';
+import { useRouter } from 'vue-router';
+import {
+  Button,
+  Col,
+  Flex,
+  Form,
+  Input,
+  InputPassword,
+  Row,
+  Upload,
+  UploadFile,
+} from 'ant-design-vue';
 import { FormInstance, FormItem } from 'ant-design-vue/es/form';
+import { useAuthStore } from '@/store/auth';
 import { validatePass, validatePass2 } from '@/utils/validation';
 
 interface FormState {
@@ -11,6 +23,9 @@ interface FormState {
   name: string;
   image: UploadFile[];
 }
+
+const router = useRouter();
+const authStore = useAuthStore();
 
 const formState = reactive<FormState>({
   email: '',
@@ -22,8 +37,13 @@ const formState = reactive<FormState>({
 
 const formRef = ref<FormInstance | null>(null);
 
-const onFinish = (values: FormState) => {
-  console.log(values);
+const onFinish = async (values: FormState) => {
+  await authStore.registerCompany({
+    name: values.name,
+    password: values.password,
+    email: values.password,
+  });
+  router.push('/login');
 };
 </script>
 
@@ -62,10 +82,9 @@ const onFinish = (values: FormState) => {
             },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.password"
             placeholder="Введите пароль"
-            type="password"
           />
         </FormItem>
 
@@ -76,10 +95,9 @@ const onFinish = (values: FormState) => {
             { required: true, validator: validatePass2(formState.password), trigger: 'blur' },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.repeatPassword"
             placeholder="Повторите пароль"
-            type="password"
           />
         </FormItem>
       </Col>
@@ -116,6 +134,7 @@ const onFinish = (values: FormState) => {
     <Flex justify="center">
       <FormItem>
         <Button
+          :loading="authStore.isLoading"
           type="primary"
           html-type="submit"
         >

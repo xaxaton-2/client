@@ -1,101 +1,62 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { LikeFilled } from '@ant-design/icons-vue';
-import { Avatar, Card, Comment, Flex, Space, Tag, Tooltip, Typography } from 'ant-design-vue';
-import dayjs from 'dayjs';
+import { ref, h, onMounted, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { PlusOutlined } from '@ant-design/icons-vue';
+import { Button, Drawer, Flex } from 'ant-design-vue';
+import BasePost from '@/components/base/BasePost.vue';
+import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
+import NewPostForm from '@/components/posts/NewPostForm.vue';
+import { useAuthStore } from '@/store/auth';
+import { useEventsStore } from '@/store/events';
 import { usePostsStore } from '@/store/posts';
-import { useStudentsStore } from '@/store/students';
-import { getFullName } from '@/utils/strings';
 
-const colors = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
-
+const route = useRoute();
+const authStore = useAuthStore();
 const postsStore = usePostsStore();
-const studentsStore = useStudentsStore();
+const eventsStore = useEventsStore();
+
+const isDrawerOpen = ref(false);
+
+const id = computed(() => Number(route.params.id));
 
 onMounted(async () => {
-  await postsStore.getPosts();
+  await Promise.all([postsStore.getPosts(), eventsStore.getEvents()]);
 });
 </script>
 
 <template>
+  <BaseSkeleton
+    v-if="postsStore.isLoading"
+    :count="3"
+  />
+
   <Flex
+    v-else
     gap="large"
     vertical
   >
-    <Card
-      v-for="post in [...postsStore.posts, ...postsStore.posts, ...postsStore.posts]"
-      :key="post.id"
-      class="post"
+    <Button
+      v-if="authStore.data?.student?.id === id"
+      type="primary"
+      :icon="h(PlusOutlined)"
+      @click="isDrawerOpen = true"
     >
-      <Comment>
-        <template #actions>
-          <Space>
-            <Tooltip title="Нравится">
-              <LikeFilled />
-            </Tooltip>
+      Новая публикация
+    </Button>
 
-            <Typography>{{ post.likes }}</Typography>
-          </Space>
-        </template>
-
-        <template #author>
-          <RouterLink :to="`/students/${post.studentId}`">
-            {{ getFullName(studentsStore.studentsMap[post.studentId]) }}
-          </RouterLink>
-        </template>
-
-        <template #avatar>
-          <RouterLink :to="`/students/${post.studentId}`">
-            <Avatar :src="studentsStore.studentsMap[post.studentId].image" />
-          </RouterLink>
-        </template>
-
-        <template #content>
-          <Flex
-            gap="small"
-            vertical
-          >
-            <Typography>{{ post.text }}</Typography>
-
-            <img
-              v-if="post.image"
-              :src="post.image"
-            />
-
-            <Flex
-              wrap="wrap"
-              gap="small"
-            >
-              <Tag
-                v-for="(tag, index) in post.hashtags.split(',')"
-                :key="index"
-                :color="colors[index % colors.length]"
-                class="tag"
-              >
-                #{{ tag }}
-              </Tag>
-            </Flex>
-          </Flex>
-        </template>
-
-        <template #datetime>
-          <Tooltip :title="dayjs(post.date).format('DD MMM в HH:mm')">
-            <span>{{ dayjs(post.date).fromNow() }}</span>
-          </Tooltip>
-        </template>
-      </Comment>
-    </Card>
+    <BasePost
+      v-for="post in postsStore.posts"
+      :key="post.id"
+      :post="post"
+    />
   </Flex>
+
+  <Drawer
+    v-if="authStore.data?.student?.id === id"
+    v-model:open="isDrawerOpen"
+    title="Новая публикация"
+    placement="right"
+  >
+    <NewPostForm @finish="isDrawerOpen = false" />
+  </Drawer>
 </template>
-
-<style scoped lang="scss">
-.post {
-  :deep(.ant-comment-inner) {
-    padding: 0;
-  }
-}
-
-.tag {
-  margin: 0;
-}
-</style>

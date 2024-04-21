@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import {
   Button,
   Col,
   Flex,
   Form,
   Input,
+  InputPassword,
   Row,
   Select,
   SelectOption,
@@ -13,6 +15,7 @@ import {
   UploadFile,
 } from 'ant-design-vue';
 import { FormInstance, FormItem } from 'ant-design-vue/es/form';
+import { useAuthStore } from '@/store/auth';
 import { useDepartmentsStore } from '@/store/departments';
 import { useFacultiesStore } from '@/store/faculties';
 import { useGroupsStore } from '@/store/groups';
@@ -33,6 +36,8 @@ interface FormState {
   groupId?: number;
 }
 
+const router = useRouter();
+const authStore = useAuthStore();
 const universitiesStore = useUniversitiesStore();
 const facultiesStore = useFacultiesStore();
 const departmentsStore = useDepartmentsStore();
@@ -54,8 +59,17 @@ const formState = reactive<FormState>({
 
 const formRef = ref<FormInstance | null>(null);
 
-const onFinish = (values: FormState) => {
-  console.log(values);
+const onFinish = async (values: FormState) => {
+  if (!values.groupId) return;
+  await authStore.registerStudent({
+    name: values.name,
+    surname: values.surname,
+    patronymic: values.patronymic,
+    email: values.email,
+    password: values.password,
+    group_id: values.groupId,
+  });
+  router.push('/login');
 };
 </script>
 
@@ -94,10 +108,9 @@ const onFinish = (values: FormState) => {
             },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.password"
             placeholder="Введите пароль"
-            type="password"
           />
         </FormItem>
 
@@ -108,10 +121,9 @@ const onFinish = (values: FormState) => {
             { required: true, validator: validatePass2(formState.password), trigger: 'blur' },
           ]"
         >
-          <Input
+          <InputPassword
             v-model:value="formState.repeatPassword"
             placeholder="Повторите пароль"
-            type="password"
           />
         </FormItem>
       </Col>
@@ -244,7 +256,7 @@ const onFinish = (values: FormState) => {
               :key="group.id"
               :value="group.id"
             >
-              {{ group.name }}
+              {{ group.name }} - {{ group.course }} курс
             </SelectOption>
           </Select>
         </FormItem></Col
@@ -254,6 +266,7 @@ const onFinish = (values: FormState) => {
     <Flex justify="center">
       <FormItem>
         <Button
+          :loading="authStore.isLoading"
           type="primary"
           html-type="submit"
         >

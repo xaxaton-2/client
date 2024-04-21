@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import ui from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
+import { Chart, registerables } from 'chart.js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -18,6 +19,8 @@ import App from './App.vue';
 import './assets/styles/index.scss';
 import { router } from './core/router';
 import { store } from './core/store';
+
+Chart.register(...registerables);
 
 dayjs.locale('ru');
 dayjs.extend(relativeTime);

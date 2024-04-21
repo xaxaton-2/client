@@ -2,7 +2,7 @@ export interface University {
   id: number;
   name: string;
   city: string;
-  image: string;
+  image: string | null;
 }
 
 export interface UniversitiesState {

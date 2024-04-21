@@ -11,8 +11,8 @@ import { OhVueIcon } from 'oh-vue-icons';
     >
       <Col :span="8">
         <Flex vertical>
-          <Typography>Политика конфиденциальности</Typography>
-          <Typography>Условия использования сайта</Typography>
+          <RouterLink to="/privacy">Политика конфиденциальности</RouterLink>
+          <RouterLink to="/terms-of-use">Условия использования сайта</RouterLink>
         </Flex>
       </Col>
 
@@ -23,13 +23,13 @@ import { OhVueIcon } from 'oh-vue-icons';
         >
           <Typography>ООО СОЗНАНИЕ</Typography>
 
-          <Typography>
+          <Typography class="address">
             460048, Оренбургская область, г Оренбург, Томилинская ул, д. 238, помещ. 2
           </Typography>
 
           <Typography>soznanie@mail.ru</Typography>
 
-          <Space>
+          <Space class="social">
             <OhVueIcon
               :scale="1.5"
               name="bi-telegram"
@@ -56,9 +56,9 @@ import { OhVueIcon } from 'oh-vue-icons';
           align="end"
           vertical
         >
-          <Typography>О нас</Typography>
+          <RouterLink to="/about">О нас</RouterLink>
           <Typography>Реклама</Typography>
-          <Typography>Партнеры</Typography>
+          <RouterLink to="/partners">Партнеры</RouterLink>
         </Flex>
       </Col>
     </Flex>
@@ -68,10 +68,25 @@ import { OhVueIcon } from 'oh-vue-icons';
 <style scoped lang="scss">
 .footer {
   padding: 16px;
+  color: $white;
   background-color: $primary;
 
+  a,
   .ant-typography {
-    color: $white;
+    color: inherit;
   }
+}
+
+.social {
+  :deep(.ant-space-item) {
+    padding: 4px;
+    margin-top: 8px;
+    background-color: $white;
+    border-radius: 8px;
+  }
+}
+
+.address {
+  white-space: nowrap;
 }
 </style>

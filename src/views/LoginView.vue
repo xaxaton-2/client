@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Button, Flex, Form, FormItem, Input } from 'ant-design-vue';
+import { useRouter } from 'vue-router';
+import { Button, Flex, Form, FormItem, Input, InputPassword } from 'ant-design-vue';
 import BaseContainer from '@/components/base/BaseContainer.vue';
+import { useAuthStore } from '@/store/auth';
 
 interface FormState {
   email: string;
   password: string;
 }
 
+const router = useRouter();
+const authStore = useAuthStore();
+
 const formState = reactive<FormState>({
   email: '',
   password: '',
 });
 
-const onFinish = (values: FormState) => {
-  console.log(values);
+const onFinish = async (values: FormState) => {
+  await authStore.login(values);
+  router.push('/');
 };
 </script>
 
@@ -50,20 +56,20 @@ const onFinish = (values: FormState) => {
           },
         ]"
       >
-        <Input
+        <InputPassword
           v-model:value="formState.password"
           placeholder="Введите пароль"
-          type="password"
         />
       </FormItem>
 
       <Flex justify="center">
         <FormItem>
           <Button
+            :loading="authStore.isLoading"
             type="primary"
             html-type="submit"
           >
-            Зарегистрироваться
+            Войти
           </Button>
         </FormItem>
       </Flex>

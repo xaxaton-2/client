@@ -1,12 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import MainLayout from '@/layouts/MainLayout.vue';
 import StudentLayout from '@/layouts/StudentLayout.vue';
+import UniversityLayout from '@/layouts/UniversityLayout.vue';
+import AboutView from '@/views/AboutView.vue';
 import LoginView from '@/views/LoginView.vue';
 import MainView from '@/views/MainView.vue';
+import PartnersView from '@/views/PartnersView.vue';
 import PostsView from '@/views/PostsView.vue';
+import PrivacyView from '@/views/PrivacyView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import StudentEventsView from '@/views/StudentEventsView.vue';
 import StudentPostsView from '@/views/StudentPostsView.vue';
 import StudentProfileView from '@/views/StudentProfileView.vue';
+import StudentStatsView from '@/views/StudentStatsView.vue';
+import StudentsView from '@/views/StudentsView.vue';
+import TermsOfUseView from '@/views/TermsOfUseView.vue';
+import UniversitiesView from '@/views/UniversitiesView.vue';
+import UniversityEventsView from '@/views/UniversityEventsView.vue';
+import UniversityProfileView from '@/views/UniversityProfileView.vue';
+import UniversityRequestsView from '@/views/UniversityRequestsView.vue';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +50,10 @@ export const router = createRouter({
           component: PostsView,
         },
         {
+          path: '/students',
+          component: StudentsView,
+        },
+        {
           path: '/students/:id',
           component: StudentLayout,
           children: [
@@ -51,7 +67,58 @@ export const router = createRouter({
               name: 'student-posts',
               component: StudentPostsView,
             },
+            {
+              path: '/students/:id/events',
+              name: 'student-events',
+              component: StudentEventsView,
+            },
+            {
+              path: '/students/:id/stats',
+              name: 'student-stats',
+              component: StudentStatsView,
+            },
           ],
+        },
+        {
+          path: '/universities',
+          component: UniversitiesView,
+        },
+        {
+          path: '/universities/:id',
+          component: UniversityLayout,
+          children: [
+            {
+              path: '/universities/:id',
+              name: 'university-profile',
+              component: UniversityProfileView,
+            },
+            {
+              path: '/universities/:id/events',
+              name: 'university-events',
+              component: UniversityEventsView,
+            },
+            {
+              path: '/universities/:id/requests',
+              name: 'university-requests',
+              component: UniversityRequestsView,
+            },
+          ],
+        },
+        {
+          path: '/partners',
+          component: PartnersView,
+        },
+        {
+          path: '/about',
+          component: AboutView,
+        },
+        {
+          path: '/privacy',
+          component: PrivacyView,
+        },
+        {
+          path: '/terms-of-use',
+          component: TermsOfUseView,
         },
       ],
     },
