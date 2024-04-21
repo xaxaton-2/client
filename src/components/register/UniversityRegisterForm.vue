@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import {
   Button,
   Col,
@@ -12,6 +13,7 @@ import {
   UploadFile,
 } from 'ant-design-vue';
 import { FormInstance, FormItem } from 'ant-design-vue/es/form';
+import { useAuthStore } from '@/store/auth';
 import { validatePass, validatePass2 } from '@/utils/validation';
 
 interface FormState {
@@ -22,6 +24,9 @@ interface FormState {
   city: string;
   image: UploadFile[];
 }
+
+const router = useRouter();
+const authStore = useAuthStore();
 
 const formState = reactive<FormState>({
   email: '',
@@ -34,8 +39,14 @@ const formState = reactive<FormState>({
 
 const formRef = ref<FormInstance | null>(null);
 
-const onFinish = (values: FormState) => {
-  console.log(values);
+const onFinish = async (values: FormState) => {
+  await authStore.registerUniversity({
+    email: values.email,
+    password: values.password,
+    name: values.name,
+    city: values.city,
+  });
+  router.push('/login');
 };
 </script>
 
@@ -137,6 +148,7 @@ const onFinish = (values: FormState) => {
     <Flex justify="center">
       <FormItem>
         <Button
+          :loading="authStore.isLoading"
           type="primary"
           html-type="submit"
         >

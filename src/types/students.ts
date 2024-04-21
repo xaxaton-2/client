@@ -5,7 +5,7 @@ export interface Student {
   patronymic: string;
   score: number;
   groupId: number;
-  image?: string;
+  image: string | null;
 }
 
 export interface StudentsState {

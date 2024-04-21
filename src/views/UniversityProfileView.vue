@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { StarFilled } from '@ant-design/icons-vue';
-import { Card, Flex, List, ListItem } from 'ant-design-vue';
+import { Button, Card, Drawer, Flex, List, ListItem, Typography } from 'ant-design-vue';
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
+import NewDepartmentForm from '@/components/faculties/NewDepartmentForm.vue';
+import NewFacultyForm from '@/components/faculties/NewFacultyForm.vue';
+import NewGroupForm from '@/components/faculties/NewGroupForm.vue';
 import { useUniversity } from '@/composables/university';
 import { useDepartmentsStore } from '@/store/departments';
 import { useFacultiesStore } from '@/store/faculties';
@@ -18,6 +21,10 @@ const facultiesStore = useFacultiesStore();
 const departmentsStore = useDepartmentsStore();
 const groupsStore = useGroupsStore();
 const studentsStore = useStudentsStore();
+
+const isFacultyDrawerOpen = ref(false);
+const isDepartmentDrawerOpen = ref(false);
+const isGroupDrawerOpen = ref(false);
 
 const id = computed(() => Number(route.params.id));
 
@@ -48,10 +55,14 @@ const isLoading = computed(() => {
     <Card>{{ university.name }} - {{ university.city }}</Card>
 
     <Card>
-      <List
-        header="Факультеты"
-        :data-source="faculties"
-      >
+      <List :data-source="faculties">
+        <template #header>
+          <Flex justify="space-between">
+            <Typography>Факультеты</Typography>
+            <Button @click="isFacultyDrawerOpen = true">Добавить</Button>
+          </Flex>
+        </template>
+
         <template #renderItem="{ item }">
           <ListItem>{{ item.name }}</ListItem>
         </template>
@@ -59,10 +70,14 @@ const isLoading = computed(() => {
     </Card>
 
     <Card>
-      <List
-        header="Кафедры"
-        :data-source="departments"
-      >
+      <List :data-source="departments">
+        <template #header>
+          <Flex justify="space-between">
+            <Typography>Кафедры</Typography>
+            <Button @click="isDepartmentDrawerOpen = true">Добавить</Button>
+          </Flex>
+        </template>
+
         <template #renderItem="{ item }">
           <ListItem>{{ item.name }}</ListItem>
         </template>
@@ -70,10 +85,14 @@ const isLoading = computed(() => {
     </Card>
 
     <Card>
-      <List
-        header="Группы"
-        :data-source="groups"
-      >
+      <List :data-source="groups">
+        <template #header>
+          <Flex justify="space-between">
+            <Typography>Группы</Typography>
+            <Button @click="isGroupDrawerOpen = true">Добавить</Button>
+          </Flex>
+        </template>
+
         <template #renderItem="{ item }">
           <ListItem>{{ item.name }}</ListItem>
         </template>
@@ -98,6 +117,30 @@ const isLoading = computed(() => {
       </List>
     </Card>
   </Flex>
+
+  <Drawer
+    v-model:open="isFacultyDrawerOpen"
+    title="Новый факультет"
+    placement="right"
+  >
+    <NewFacultyForm @finish="isFacultyDrawerOpen = false" />
+  </Drawer>
+
+  <Drawer
+    v-model:open="isDepartmentDrawerOpen"
+    title="Новая кафедра"
+    placement="right"
+  >
+    <NewDepartmentForm @finish="isDepartmentDrawerOpen = false" />
+  </Drawer>
+
+  <Drawer
+    v-model:open="isGroupDrawerOpen"
+    title="Новая группа"
+    placement="right"
+  >
+    <NewGroupForm @finish="isGroupDrawerOpen = false" />
+  </Drawer>
 </template>
 
 <style scoped lang="scss">

@@ -23,8 +23,6 @@ onMounted(async () => {
     studentsStore.getStudents(),
   ]);
 });
-
-// TODO профиль студента
 </script>
 
 <template>

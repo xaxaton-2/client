@@ -1,7 +1,7 @@
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
+import { getUniversities } from '@/api/universities';
 import { UniversitiesState, University } from '@/types/universities';
-import { sleep } from '@/utils/promises';
 import { arrayToMap } from '@/utils/structures';
 
 export const useUniversitiesStore = defineStore('universities', {
@@ -18,33 +18,7 @@ export const useUniversitiesStore = defineStore('universities', {
     async getUniversities() {
       this.isLoading = true;
       try {
-        await sleep();
-        this.universities = [
-          {
-            id: 1,
-            name: 'ОГУ',
-            city: 'Оренбург',
-            image: 'https://placehold.co/100',
-          },
-          {
-            id: 2,
-            name: 'ОГАУ',
-            city: 'Оренбург',
-            image: 'https://placehold.co/100',
-          },
-          {
-            id: 3,
-            name: 'ОГПУ',
-            city: 'Оренбург',
-            image: 'https://placehold.co/100',
-          },
-          {
-            id: 4,
-            name: 'ОрГМУ',
-            city: 'Оренбург',
-            image: 'https://placehold.co/100',
-          },
-        ];
+        this.universities = await getUniversities();
       } catch {
         message.error('Ошибка при загрузке университетов!');
       } finally {
