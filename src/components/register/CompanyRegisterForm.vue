@@ -40,8 +40,8 @@ const formRef = ref<FormInstance | null>(null);
 const onFinish = async (values: FormState) => {
   await authStore.registerCompany({
     name: values.name,
+    email: values.email,
     password: values.password,
-    email: values.password,
   });
   router.push('/login');
 };

@@ -55,7 +55,8 @@ export const useAuthStore = defineStore('auth', {
     async registerStudent(data: RegisterStudentData) {
       this.isLoading = true;
       try {
-        this.token = await registerStudent(data);
+        await registerStudent(data);
+        message.success('Вы успешно зарегистрировались!');
       } catch {
         message.error('Ошибка при регистрации!');
       } finally {
@@ -65,7 +66,8 @@ export const useAuthStore = defineStore('auth', {
     async registerUniversity(data: RegisterUniversityData) {
       this.isLoading = true;
       try {
-        this.token = await registerUniversity(data);
+        await registerUniversity(data);
+        message.success('Вы успешно зарегистрировались!');
       } catch {
         message.error('Ошибка при регистрации!');
       } finally {
@@ -75,7 +77,8 @@ export const useAuthStore = defineStore('auth', {
     async registerCompany(data: RegisterCompanyData) {
       this.isLoading = true;
       try {
-        this.token = await registerCompany(data);
+        await registerCompany(data);
+        message.success('Вы успешно зарегистрировались!');
       } catch {
         message.error('Ошибка при регистрации!');
       } finally {
