@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, h } from 'vue';
+import { reactive, h, onBeforeUnmount } from 'vue';
 import { SearchOutlined, StarFilled } from '@ant-design/icons-vue';
 import {
   Button,
@@ -22,7 +22,9 @@ import { useFacultiesStore } from '@/store/faculties';
 import { useGroupsStore } from '@/store/groups';
 import { useStudentsStore } from '@/store/students';
 import { useUniversitiesStore } from '@/store/universities';
+import { StudentsParams } from '@/types/students';
 import { getFullName } from '@/utils/strings';
+import { filterObject } from '@/utils/structures';
 
 interface FormState {
   city?: string;
@@ -46,9 +48,21 @@ const formState = reactive<FormState>({
   course: undefined,
 });
 
-const onSearch = () => {
-  console.log(formState);
+const onSearch = async () => {
+  const params: StudentsParams = filterObject({
+    city: formState.city,
+    course: formState.course,
+    department_id: formState.departmentId,
+    faculty_id: formState.facultyId,
+    university_id: formState.universityId,
+  });
+
+  await studentsStore.getStudents(params);
 };
+
+onBeforeUnmount(async () => {
+  await studentsStore.getStudents();
+});
 </script>
 
 <template>
@@ -146,6 +160,7 @@ const onSearch = () => {
 
         <Col :span="8">
           <Button
+            :loading="studentsStore.isLoading"
             :icon="h(SearchOutlined)"
             type="primary"
             block
