@@ -34,12 +34,16 @@ const profile = computed(() => {
           <router-link to="/register">Регистрация</router-link>
         </template>
 
-        <router-link
-          v-else-if="profile"
-          :to="profile"
-        >
-          Профиль
-        </router-link>
+        <template v-else-if="profile">
+          <router-link :to="profile"> Профиль </router-link>
+
+          <span
+            class="logout"
+            @click="authStore.logout"
+          >
+            Выйти
+          </span>
+        </template>
       </Flex>
     </Flex>
   </LayoutHeader>
@@ -56,5 +60,9 @@ const profile = computed(() => {
   a {
     color: inherit;
   }
+}
+
+.logout {
+  cursor: pointer;
 }
 </style>

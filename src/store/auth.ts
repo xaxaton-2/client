@@ -1,6 +1,6 @@
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
-import { login, registerCompany, registerStudent, registerUniversity } from '@/api/auth';
+import { auth, login, registerCompany, registerStudent, registerUniversity } from '@/api/auth';
 import {
   AuthState,
   LoginData,
@@ -33,6 +33,19 @@ export const useAuthStore = defineStore('auth', {
         this.token = token;
         this.data = rest;
         localStorage.setItem('token', token);
+      } catch {
+        message.error('Неверный email или пароль!');
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async auth(token: string) {
+      this.isLoading = true;
+      try {
+        const data = await auth(token);
+        this.token = data.token;
+        this.data = data;
+        localStorage.setItem('token', data.token);
       } catch {
         message.error('Неверный email или пароль!');
       } finally {
