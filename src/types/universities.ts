@@ -3,6 +3,7 @@ export interface University {
   name: string;
   city: string;
   image: string | null;
+  score: number;
 }
 
 export interface UniversitiesState {

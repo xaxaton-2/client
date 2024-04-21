@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Card, Col, List, ListItem, Row, Typography } from 'ant-design-vue';
+import { StarFilled } from '@ant-design/icons-vue';
+import { Card, Col, Flex, List, ListItem, Row, Typography } from 'ant-design-vue';
 import BaseContainer from '@/components/base/BaseContainer.vue';
 import BaseSkeleton from '@/components/base/BaseSkeleton.vue';
 import { useDepartmentsStore } from '@/store/departments';
@@ -69,25 +70,36 @@ const count = computed(() => {
         <ListItem>
           <RouterLink :to="`/universities/${item.id}`">
             <Card
-              class="card"
               size="small"
               hoverable
             >
-              <Typography>{{ item.name }} - {{ item.city }}</Typography>
+              <Flex
+                align="center"
+                vertical
+              >
+                <Typography>{{ item.name }} - {{ item.city }}</Typography>
 
-              <Typography>
-                {{
-                  getEnding(count[item.id].faculties, ['факультет', 'факультета', 'факультетов'])
-                }}
-              </Typography>
+                <Typography>
+                  {{
+                    getEnding(count[item.id].faculties, ['факультет', 'факультета', 'факультетов'])
+                  }}
+                </Typography>
 
-              <Typography>
-                {{ getEnding(count[item.id].departments, ['кафедра', 'кафедры', 'кафедр']) }}
-              </Typography>
+                <Typography>
+                  {{ getEnding(count[item.id].departments, ['кафедра', 'кафедры', 'кафедр']) }}
+                </Typography>
 
-              <Typography>
-                {{ getEnding(count[item.id].groups, ['группа', 'группы', 'групп']) }}
-              </Typography>
+                <Typography>
+                  {{ getEnding(count[item.id].groups, ['группа', 'группы', 'групп']) }}
+                </Typography>
+
+                <Flex
+                  align="center"
+                  gap="small"
+                >
+                  <StarFilled class="star" /> {{ item.score }}
+                </Flex>
+              </Flex>
             </Card>
           </RouterLink>
         </ListItem>
@@ -97,7 +109,7 @@ const count = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.card {
-  text-align: center;
+.star {
+  color: $primary;
 }
 </style>
