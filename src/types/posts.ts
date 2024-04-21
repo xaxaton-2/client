@@ -7,7 +7,7 @@ export interface Post {
   text: string;
   image: string | null;
   hashtags: string;
-  event: Event;
+  event: Event | null;
   likes: number;
 }
 

@@ -66,7 +66,7 @@ const { student, group, department, faculty, university } = useStudent(Number(ro
         gap="large"
       >
         <Avatar
-          :src="student.image"
+          :src="student.image || undefined"
           :size="96"
           class="avatar"
         >

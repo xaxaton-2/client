@@ -3,15 +3,33 @@ import { computed } from 'vue';
 import { Flex, LayoutHeader } from 'ant-design-vue';
 import { useAuthStore } from '@/store/auth';
 import { Role } from '@/types/auth';
+import { getFullName } from '@/utils/strings';
 
 const authStore = useAuthStore();
 
-const profile = computed(() => {
+const name = computed(() => {
+  if (!authStore.isAuth || !authStore.data) return null;
+
   if (authStore.data?.user.role === Role.Student) {
-    return `/students/${authStore.data.student?.id}`;
-  } else if (authStore.data?.user.role === Role.University) {
-    return `/universities/${authStore.data.university?.id}`;
+    return getFullName(authStore.data.student!);
+  } else if (authStore.data.user.role === Role.University) {
+    return authStore.data.university?.name || null;
+  } else if (authStore.data.user.role === Role.Company) {
+    return authStore.data.company?.name || null;
   }
+
+  return null;
+});
+
+const profile = computed(() => {
+  if (!authStore.isAuth) return null;
+
+  if (authStore.data?.user.role === Role.Student && authStore.data.student) {
+    return `/students/${authStore.data.student.id}`;
+  } else if (authStore.data?.user.role === Role.University && authStore.data.university) {
+    return `/universities/${authStore.data.university.id}`;
+  }
+
   return null;
 });
 </script>
@@ -34,8 +52,15 @@ const profile = computed(() => {
           <router-link to="/register">Регистрация</router-link>
         </template>
 
-        <template v-else-if="profile">
-          <router-link :to="profile"> Профиль </router-link>
+        <template v-else>
+          <span>{{ name }}</span>
+
+          <router-link
+            v-if="profile"
+            :to="profile"
+          >
+            Профиль
+          </router-link>
 
           <span
             class="logout"

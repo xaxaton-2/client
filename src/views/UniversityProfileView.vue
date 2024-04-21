@@ -8,6 +8,7 @@ import NewDepartmentForm from '@/components/faculties/NewDepartmentForm.vue';
 import NewFacultyForm from '@/components/faculties/NewFacultyForm.vue';
 import NewGroupForm from '@/components/faculties/NewGroupForm.vue';
 import { useUniversity } from '@/composables/university';
+import { useAuthStore } from '@/store/auth';
 import { useDepartmentsStore } from '@/store/departments';
 import { useFacultiesStore } from '@/store/faculties';
 import { useGroupsStore } from '@/store/groups';
@@ -16,6 +17,7 @@ import { useUniversitiesStore } from '@/store/universities';
 import { getFullName } from '@/utils/strings';
 
 const route = useRoute();
+const authStore = useAuthStore();
 const universitiesStore = useUniversitiesStore();
 const facultiesStore = useFacultiesStore();
 const departmentsStore = useDepartmentsStore();
@@ -59,7 +61,12 @@ const isLoading = computed(() => {
         <template #header>
           <Flex justify="space-between">
             <Typography>Факультеты</Typography>
-            <Button @click="isFacultyDrawerOpen = true">Добавить</Button>
+            <Button
+              v-if="authStore.data?.university?.id === university.id"
+              @click="isFacultyDrawerOpen = true"
+            >
+              Добавить
+            </Button>
           </Flex>
         </template>
 
@@ -74,7 +81,12 @@ const isLoading = computed(() => {
         <template #header>
           <Flex justify="space-between">
             <Typography>Кафедры</Typography>
-            <Button @click="isDepartmentDrawerOpen = true">Добавить</Button>
+            <Button
+              v-if="authStore.data?.university?.id === university.id"
+              @click="isDepartmentDrawerOpen = true"
+            >
+              Добавить
+            </Button>
           </Flex>
         </template>
 
@@ -89,7 +101,12 @@ const isLoading = computed(() => {
         <template #header>
           <Flex justify="space-between">
             <Typography>Группы</Typography>
-            <Button @click="isGroupDrawerOpen = true">Добавить</Button>
+            <Button
+              v-if="authStore.data?.university?.id === university.id"
+              @click="isGroupDrawerOpen = true"
+            >
+              Добавить
+            </Button>
           </Flex>
         </template>
 

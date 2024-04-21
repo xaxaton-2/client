@@ -16,6 +16,8 @@ const colors = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
 const studentsStore = useStudentsStore();
 
 const student = computed(() => studentsStore.studentsMap[props.post.studentId]);
+
+const tags = computed(() => (props.post.hashtags ? props.post.hashtags.split(',') : []));
 </script>
 
 <template>
@@ -47,7 +49,7 @@ const student = computed(() => studentsStore.studentsMap[props.post.studentId]);
 
       <template #avatar>
         <RouterLink :to="`/students/${post.studentId}`">
-          <Avatar :src="student.image">
+          <Avatar :src="student.image || undefined">
             <template
               v-if="!student.image"
               #icon
@@ -63,7 +65,7 @@ const student = computed(() => studentsStore.studentsMap[props.post.studentId]);
           gap="small"
           vertical
         >
-          <Typography>{{ post.text }}</Typography>
+          <p>{{ post.text }}</p>
 
           <img
             v-if="post.image"
@@ -75,7 +77,7 @@ const student = computed(() => studentsStore.studentsMap[props.post.studentId]);
             gap="small"
           >
             <Tag
-              v-for="(tag, index) in post.hashtags.split(',')"
+              v-for="(tag, index) in tags"
               :key="index"
               :color="colors[index % colors.length]"
               class="tag"

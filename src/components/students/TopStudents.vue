@@ -44,7 +44,7 @@ const studentsStore = useStudentsStore();
             vertical
           >
             <Avatar
-              :src="studentsStore.students[m * n - 1].image"
+              :src="studentsStore.students[m * n - 1].image || undefined"
               size="large"
             >
               <template
