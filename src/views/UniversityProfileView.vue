@@ -126,8 +126,8 @@ const isLoading = computed(() => {
             <div>{{ getFullName(item) }} <StarFilled class="star" /> {{ item.score }}</div>
 
             <div>
-              {{ groupsStore.groupsMap[item.groupId].name }} -
-              {{ groupsStore.groupsMap[item.groupId].course }} курс
+              {{ groupsStore.groupsMap[item.groupId]?.name }} -
+              {{ groupsStore.groupsMap[item.groupId]?.course }} курс
             </div>
           </ListItem>
         </template>

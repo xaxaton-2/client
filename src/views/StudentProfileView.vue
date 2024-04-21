@@ -86,8 +86,9 @@ const { student, group, department, faculty, university } = useStudent(Number(ro
           <div>
             {{ university.name }}
             {{ group.name }}
-            {{ group.course }} курс
           </div>
+
+          <div>{{ group.course }} курс</div>
         </TypographyTitle>
 
         <Flex

@@ -59,7 +59,7 @@ onMounted(async () => {
           </RouterLink>
           на мероприятие
           <RouterLink :to="`/universities/${route.params.id}/events`">
-            {{ eventsStore.eventsMap[request.eventId].name }}
+            {{ eventsStore.eventsMap[request.eventId]?.name }}
           </RouterLink>
         </Typography>
 

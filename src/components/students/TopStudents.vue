@@ -26,29 +26,28 @@ const studentsStore = useStudentsStore();
       </Flex>
 
       <Flex
-        v-for="n in 2"
-        :key="n"
         justify="center"
-        align="center"
-        gap="middle"
+        wrap="wrap"
+        gap="large"
       >
         <RouterLink
-          v-for="m in 5"
-          :key="m"
+          v-for="student in studentsStore.students"
+          :key="student.id"
           class="student"
-          :to="`/students/${studentsStore.students[m * n - 1].id}`"
+          :to="`/students/${student.id}`"
         >
           <Flex
             align="center"
+            justify="center"
             gap="small"
             vertical
           >
             <Avatar
-              :src="studentsStore.students[m * n - 1].image || undefined"
+              :src="student.image || undefined"
               size="large"
             >
               <template
-                v-if="!studentsStore.students[m * n - 1].image"
+                v-if="!student.image"
                 #icon
               >
                 <UserOutlined />
@@ -57,11 +56,11 @@ const studentsStore = useStudentsStore();
 
             <div class="name">
               <div>
-                {{ studentsStore.students[m * n - 1].name }}
-                {{ studentsStore.students[m * n - 1].surname }}
+                {{ student.name }}
+                {{ student.surname }}
               </div>
 
-              <div>{{ studentsStore.students[m * n - 1].patronymic }}</div>
+              <div>{{ student.patronymic }}</div>
             </div>
           </Flex>
         </RouterLink>

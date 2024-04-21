@@ -43,6 +43,8 @@ const profile = computed(() => {
         <router-link to="/posts">Лента новостей</router-link>
 
         <router-link to="/universities">Университеты</router-link>
+
+        <router-link to="/students">Студенты</router-link>
       </Flex>
 
       <Flex gap="large">
