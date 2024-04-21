@@ -144,7 +144,7 @@ onMounted(async () => {
               :key="group.id"
               :value="group.id"
             >
-              {{ group.name }}
+              {{ group.name }} - {{ group.course }} курс
             </SelectOption>
           </Select>
         </Col>

@@ -26,6 +26,7 @@ export const useStudentsStore = defineStore('students', {
             surname: 'Иванов',
             patronymic: 'Иванович',
             score: 85,
+            image: null,
             groupId: 1,
           },
           {
@@ -46,7 +47,7 @@ export const useStudentsStore = defineStore('students', {
             score: 90,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 3,
+            groupId: 1,
           },
           {
             id: 4,
@@ -56,7 +57,7 @@ export const useStudentsStore = defineStore('students', {
             score: 78,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 4,
+            groupId: 2,
           },
           {
             id: 5,
@@ -66,7 +67,7 @@ export const useStudentsStore = defineStore('students', {
             score: 65,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 5,
+            groupId: 1,
           },
           {
             id: 6,
@@ -86,7 +87,7 @@ export const useStudentsStore = defineStore('students', {
             score: 80,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 2,
+            groupId: 1,
           },
           {
             id: 8,
@@ -96,7 +97,7 @@ export const useStudentsStore = defineStore('students', {
             score: 92,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 3,
+            groupId: 1,
           },
           {
             id: 9,
@@ -106,7 +107,7 @@ export const useStudentsStore = defineStore('students', {
             score: 75,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 4,
+            groupId: 1,
           },
           {
             id: 10,
@@ -116,7 +117,7 @@ export const useStudentsStore = defineStore('students', {
             score: 82,
             image:
               'https://sun9-68.userapi.com/impg/aezKRHNTBKozgFb8hPDLLJX0qPjszkrszXZ8DQ/0MKQKSTJ2zQ.jpg?size=1037x1707&quality=95&sign=79ffbafdfabbcfe506740dcc17c61753&type=album',
-            groupId: 5,
+            groupId: 1,
           },
         ];
       } catch {

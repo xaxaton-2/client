@@ -5,7 +5,7 @@ export interface Post {
   date: string;
   studentId: number;
   text: string;
-  image?: string;
+  image: string | null;
   hashtags: string;
   event: Event;
   likes: number;

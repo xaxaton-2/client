@@ -1,6 +1,7 @@
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
-import { Group, GroupsState } from '@/types/groups';
+import { createGroup, getGroups } from '@/api/groups';
+import { CreateGroupData, Group, GroupsState } from '@/types/groups';
 import { arrayToMap } from '@/utils/structures';
 
 export const useGroupsStore = defineStore('groups', {
@@ -17,15 +18,20 @@ export const useGroupsStore = defineStore('groups', {
     async getGroups() {
       this.isLoading = true;
       try {
-        this.groups = [
-          { id: 1, name: 'Архитектура', course: 2, departmentId: 1 },
-          { id: 2, name: 'Дизайн архитектурной среды', course: 4, departmentId: 2 },
-          { id: 3, name: 'Строительство', course: 3, departmentId: 3 },
-          { id: 4, name: 'Технология и организация строительства', course: 4, departmentId: 4 },
-          { id: 5, name: 'Техника и технологии строительства', course: 1, departmentId: 5 },
-        ];
+        this.groups = await getGroups();
       } catch {
         message.error('Ошибка при загрузке групп!');
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async createGroup(data: CreateGroupData) {
+      this.isLoading = true;
+      try {
+        await createGroup(data);
+        this.groups = await getGroups();
+      } catch {
+        message.error('Ошибка при добавлении групп!');
       } finally {
         this.isLoading = false;
       }

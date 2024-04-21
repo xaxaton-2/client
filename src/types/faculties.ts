@@ -8,3 +8,9 @@ export interface FacultiesState {
   faculties: Faculty[];
   isLoading: boolean;
 }
+
+export type FacultiesResponse = {
+  id: number;
+  name: string;
+  university_id: number;
+}[];

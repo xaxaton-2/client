@@ -19,7 +19,7 @@ export const usePostsStore = defineStore('posts', {
             date: '2024-04-10T09:31:47.219Z',
             studentId: i + 1,
             text: 'harder lion avoid since setting deeply forgotten thank common cabin gain hour hat fierce size exact street nearer command compass burst black slept method lesson great excellent muscle must care flies effort share pleasant so war meal national second constantly run story allow carefully exchange strange sing highway',
-            image: Math.random() > 0.5 ? 'https://placehold.co/100' : undefined,
+            image: Math.random() > 0.5 ? 'https://placehold.co/100' : null,
             hashtags: 'lonely,gravity,history,written,cost,degree,melted,poor,truck,fifth',
             event: {
               id: 1,
